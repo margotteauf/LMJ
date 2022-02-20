@@ -14,7 +14,7 @@ function ShoppingList({ cart, updateCart }) {
 
   function supToCart(name, price) {
     const currentPlantSaved = cart.find((plant) => plant.name === name);
-    if (currentPlantSaved && currentPlantSaved.amount > 0) {
+    if (currentPlantSaved && currentPlantSaved.amount > 1) {
       const cartFilteredCurrentPlant = cart.filter(
         (plant) => plant.name !== name
       );
@@ -22,9 +22,18 @@ function ShoppingList({ cart, updateCart }) {
         ...cartFilteredCurrentPlant,
         { name, price, amount: currentPlantSaved.amount - 1 },
       ]);
+    } else {
+      
+      // console.log(cart);
+      // console.log(cart.filter(function(f){ return f !== currentPlantSaved }));
+      updateCart([
+        ...cart.filter( function(f){ return f !== currentPlantSaved })
+        // ...cart.filter( function(f){ return f !== currentPlantSaved })
+        
+      ]);
     }
   }
-  
+
   function addToCart(name, price) {
     const currentPlantSaved = cart.find((plant) => plant.name === name);
     if (currentPlantSaved) {

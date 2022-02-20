@@ -2,16 +2,20 @@ import { useState } from 'react'
 import '../styles/Cart.css'
 import {useEffect } from 'react'
 
-function Cart({ cart, updateCart }) {
+
+
+
+function Cart({ cart, updateCart}) {
 	const [isOpen, setIsOpen] = useState(true)
 	const total = cart.reduce(
 		(acc, plantType) => acc + plantType.amount * plantType.price,
 		0
 	)
 
+
 	useEffect(() => {
 		document.title = `LMJ: ${total}€ d'achats`
-	}, [total])
+	}, [total, cart])
 
 		return isOpen ? (
 		<div className='lmj-cart'>
@@ -28,13 +32,23 @@ function Cart({ cart, updateCart }) {
 						{cart.map(({ name, price, amount }, index) => (
 							<div key={`${name}-${index}`}>
 								{name} {price}€ x {amount}
+								
+								
 							</div>
+							
 						))}
+						
 					</ul>
-					{total === 0 ? updateCart([]) : <h3>Total :{total}€</h3>}
+					
+					{/* {total === 0 ? updateCart([]) : null} */}
+					
+					{/* {total === 0 ? updateCart([]) : <h3>Total :{total}€</h3>} */}
 												
-					{/* <h3>Total :{total}€</h3> */}
+					<h3>Total :{total}€</h3>
+					
 					<button onClick={() => updateCart([])}>Vider le panier</button>
+					
+					
 				</div>
 			) : (
 				<div>Votre panier est vide</div>
